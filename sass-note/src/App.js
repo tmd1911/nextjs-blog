@@ -12,6 +12,15 @@ justify-content: center;
 align-items: center;
 `
 
+// em, rem 은 font-size 속성값에 비례해 크기가 결정되는 단위
+// font-size: 16px => 1em: 16px
+// em 은 현재 엘리먼트의 font-size, rem: 루트 엘리먼트의 font-size
+
+
+// Container에는 display, flex-flow, justify-content 등의 속성을 사용할 수 있음
+// Items에는 order, flex, align-self 속성을 사용할 수 있음
+
+
 const AppDiv = styled.div`
 width: 50vw;
 height: 50vh;
@@ -51,12 +60,16 @@ class App extends React.Component {
     search: '',
     notes: [
       {date:new Date(), text: '첫 번째 메모 텍스트', title: '첫 번째 메모입니다.', edited: false},
-      {date: new Date(), text: '두 번째 메모', title:'second', edited:false}
+      {date:new Date(), text: '두 번째 메모', title:'second', edited:false},
+      {date:new Date(), text: '3 번째 메모', title:'second', edited:false},
+      {date:new Date(), text: '4 번째 메모', title:'second', edited:false},
+      {date:new Date(), text: '5 번째 메모', title:'second', edited:false},
+      {date:new Date(), text: '6 번째 메모', title:'second', edited:false},
     ],
     modalToggle: false
   };
 
-  toggleModal=() => {
+  toggleModal = () => {
     this.setState({
       modalToggle: !this.state.modalToggle
     });
