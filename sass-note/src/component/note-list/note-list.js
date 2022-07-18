@@ -8,13 +8,12 @@ class NoteList extends Component {
     };
 
     render() {
-        const filteredNotes = this.props.notes.map((note,idx)=>{
-            return {...note,idx};
-        }).filter(note=>{
-            return note.text.indexOf(this.props.search) !== -1;
-        });
         const noteListReturn = notes => {
-            return filteredNotes.map((note, k) => {
+            return this.props.notes.map((note,idx)=>{
+                return {...note,idx};
+            }).filter(note=>{
+                return note.text.indexOf(this.props.search) !== -1;
+            }).map((note, k) => {
                 return <Note key={k}
                  noteNumber={k} 
                  title={note.title} 

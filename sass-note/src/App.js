@@ -29,7 +29,7 @@ div > span {
   font-size: 2rem;
   font-weight: bold;
 }
-div > button {
+> button {
   font-size: 1.2rem;
   border-radius: 0.5rem;
   border: 1px solid transparent;
@@ -99,9 +99,9 @@ class App extends React.Component {
               <span>노트 만들기</span>
             </div>
             <div>
-              <button onClick={this.toggleModal}>노트 작성</button>
               <SearchBar search={this.state.search} onChangeSearchText={this.onChangeSearchText}/>
             </div>
+            <button onClick={this.toggleModal}>노트 작성</button>
           </SearchBarDiv>
           <NoteList search={this.state.search} notes={this.state.notes} changeNote={this.changeNote} deleteNote={this.deleteNote}/>
         </AppDiv>
