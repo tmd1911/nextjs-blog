@@ -1,4 +1,7 @@
 import React,{Component} from "react";
+import Delete from "../../delete/delete";
+import ModalPage from "../../modal/modal";
+import NoteRaw from "../../note-raw/note-raw";
 import './note.scss';
 
 class Note extends Component {
@@ -45,6 +48,30 @@ class Note extends Component {
                 </span>
             </div>
             <div>{this.props.text}</div>
+
+            {this.state.showChangeModal && (
+                <ModalPage>
+                    <NoteRaw noteNumber={this.props.noteNumber}
+                        action={this.props.changeNote}
+                        close={this.changeEditToggle}
+                        subject={'노트 수정'}
+                        title={this.props.title}
+                        text={this.props.text}
+                        />
+                </ModalPage>
+            )}
+
+            {this.state.showDeleteModal && (
+                <ModalPage close={()=>{
+                    this.changeEditToggle({target: {id: 'showDeleteModal'}});
+                }}
+                >
+                    <Delete number={this.props.noteNumber}
+                        action={this.props.deleteNote}
+                        title={this.props.title}
+                        close={this.changeDeleteToggle} />
+                </ModalPage>
+            )}
         </div>
     }
 };

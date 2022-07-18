@@ -8,9 +8,22 @@ class NoteList extends Component {
     };
 
     render() {
+        const filteredNotes = this.props.notes.map((note,idx)=>{
+            return {...note,idx};
+        }).filter(note=>{
+            return note.text.indexOf(this.props.search) !== -1;
+        });
         const noteListReturn = notes => {
-            return notes.map((note, k) => {
-                return <Note key={k} noteNumber={k} title={note.title} text={note.text} date={note.date} edited={note.edited}/>
+            return filteredNotes.map((note, k) => {
+                return <Note key={k}
+                 noteNumber={k} 
+                 title={note.title} 
+                 text={note.text} 
+                 date={note.date} 
+                 edited={note.edited}
+                 changeNote={this.props.changeNote}
+                 deleteNote={this.props.deleteNote}
+                 />
             })
         }
         // const noteListReturn = notes => {
