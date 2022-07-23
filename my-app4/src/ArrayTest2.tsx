@@ -12,9 +12,7 @@ class ArrayTest2 extends React.Component {
     render() {
         return (
             <div>
-            <ul>
-                {this.func([...this.a,{id:45,name:"fourth"}])}
-            </ul>
+            {this.func([...this.a,{id:45,name:"fourth"}])}
             </div>
         )
     }

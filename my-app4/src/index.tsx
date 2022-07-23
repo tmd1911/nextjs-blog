@@ -5,6 +5,8 @@ import AppCounter from './AppCounter';
 import AppClass2 from './AppClass2';
 import ArrayTest from './ArrayTest';
 import ArrayTest2 from './ArrayTest2';
+import Interval from './Interval';
+import Flow from './Flow';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -12,7 +14,8 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <ArrayTest2 />
+    <Flow b={false} />
+    <Flow b={true} />
   </React.StrictMode>
 );
 
