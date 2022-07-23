@@ -7,6 +7,8 @@ import ArrayTest from './ArrayTest';
 import ArrayTest2 from './ArrayTest2';
 import Interval from './Interval';
 import Flow from './Flow';
+import RouterWrapper from './RouterWrapper';
+
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -14,8 +16,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Flow b={false} />
-    <Flow b={true} />
+    <RouterWrapper />
   </React.StrictMode>
 );
 
