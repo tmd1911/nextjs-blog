@@ -6,6 +6,8 @@ import PictureList from './components/picture-list';
 import LoadMore from './LoadMore';
 import Loader from './components/Loader';
 
+// import PictureList from './container/'
+
 class App extends React.Component {
   state = {
     images: [],

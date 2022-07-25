@@ -8,6 +8,8 @@ import ArrayTest2 from './ArrayTest2';
 import Interval from './Interval';
 import Flow from './Flow';
 import RouterWrapper from './RouterWrapper';
+import AppBootstrap from './AppBootstrap';
+import AppMUI from './AppMUI';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -16,7 +18,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <RouterWrapper />
+    <AppMUI />
   </React.StrictMode>
 );
 
