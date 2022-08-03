@@ -5,7 +5,11 @@ interface Props {
     router: NextRouter
 }
 
-class Id extends React.Component<Props> {
+class States {
+
+}
+
+class BracketId extends React.Component<Props, States> {
     constructor(props: Props) {
         super(props);
     }
@@ -14,7 +18,7 @@ class Id extends React.Component<Props> {
         const id = Number(this.props.router.query.id);
         return (
             <div>
-              <h1>/pages/sub/{id}.js</h1>
+              <h1>/pages/sub/{id}</h1>
               <ul>
                 <li><a href="/">/pages/index.js</a></li>
                 <li><a href="/sub">/pages/sub/index.js</a></li>
@@ -27,4 +31,4 @@ class Id extends React.Component<Props> {
     }
 }
 
-export default withRouter(Id);
+export default withRouter(BracketId);

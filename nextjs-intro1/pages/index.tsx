@@ -59,6 +59,10 @@ class Home extends React.Component<Props, State> {
     }, `/movies/${title}/${id}`);
   }
 
+  movie_onclick2 = (id:string,title:string)=>{
+    this.props.router.push(`/movies/${title}/${id}`);
+  }
+
   render() {
     return (
       <div className='container'>
@@ -69,12 +73,14 @@ class Home extends React.Component<Props, State> {
           return (
             <div key={k} className="movie">
               <img onClick={() => this.movie_onclick(v.id, v.original_title)} src={`https://image.tmdb.org/t/p/w500/${v.poster_path}`} />
-              <h4><Link href={{
+              <h4>
+              {/* <Link href={{
                 pathname: `/movies/${v.original_title}/${v.id}`,
                 query: {
                   title: v.title,
                 },
-              }} as={`/movies/${v.original_title}/${v.id}`}><a>{v.original_title}</a></Link></h4>
+              }} as={`/movies/${v.original_title}/${v.id}`}> */}
+                <Link href={`/movies/${v.original_title}/${v.id}`} as={`/movies/${v.original_title}/${v.id}`}><a>{v.original_title}</a></Link></h4>
             </div>
           )
         })}

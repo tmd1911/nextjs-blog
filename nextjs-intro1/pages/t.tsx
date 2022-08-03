@@ -1,6 +1,7 @@
 
 import { NextRouter, withRouter } from 'next/router';
 import React from 'react';
+import {GetServerSideProps} from 'next'
 
 interface Props {
   router: NextRouter
@@ -24,3 +25,12 @@ class T extends React.Component<Props, State> {
 }
 
 export default withRouter(T)
+
+// export const getServerSideProps: GetServerSideProps = async(c) => {
+//   console.log("getServerSideProps", c)
+//   return {
+//     props: {
+//       params:c.params
+//     }
+//   }
+// }
