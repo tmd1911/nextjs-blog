@@ -1,6 +1,7 @@
 
 import axios from 'axios';
 import Head from 'next/head';
+import Link from 'next/link';
 import { NextRouter, withRouter } from 'next/router';
 import React from 'react';
 import NavBar from '../components/NavBar';
@@ -12,7 +13,7 @@ interface Props {
 }
 
 class State {
-  movies?:Array<any>
+  movies?: Array<any>
 }
 
 class Home extends React.Component<Props, State> {
@@ -22,11 +23,11 @@ class Home extends React.Component<Props, State> {
     super(props);
     console.log("Home constructor router", this.props.router);
     console.log("Home constructor results", this.props.results);
-    this.state = {movies: this.props.results}
+    this.state = { movies: this.props.results }
   }
 
   componentDidMount = () => {
-    
+
     // axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${this.API_KEY}`)
     // .then((res)=>{
     //   console.log(res.data);
@@ -44,23 +45,38 @@ class Home extends React.Component<Props, State> {
     // .then((res)=>{
     //   console.log("componentDidMount", res.body);
     // })
-    
+
     // https://nomadcoders.co/nextjs-fundamentals/lectures/3446
+  }
+
+  movie_onclick = (id: string, title: string) => {
+    // this.props.router.push(`/movies/${id}`)
+    this.props.router.push({
+      pathname: `/movies/${title}/${id}`,
+      query: {
+        title: title,
+      },
+    }, `/movies/${title}/${id}`);
   }
 
   render() {
     return (
-      <div>
-        <Seo title="Home"/>
+      <div className='container'>
+        <Seo title="Home" />
         {this.state.movies?.toString()}
         {!this.state.movies && <h4>Loading...</h4>}
-        {this.state.movies?.map((v:any,k:number)=>{
-        return (
-          <div key={k} className="movie">
-            <img src={`https://image.tmdb.org/t/p/w500/${v.poster_path}`} />
-            <h4>{v.original_title}</h4>
-          </div>
-        )
+        {this.state.movies?.map((v: any, k: number) => {
+          return (
+            <div key={k} className="movie">
+              <img onClick={() => this.movie_onclick(v.id, v.original_title)} src={`https://image.tmdb.org/t/p/w500/${v.poster_path}`} />
+              <h4><Link href={{
+                pathname: `/movies/${v.original_title}/${v.id}`,
+                query: {
+                  title: v.title,
+                },
+              }} as={`/movies/${v.original_title}/${v.id}`}><a>{v.original_title}</a></Link></h4>
+            </div>
+          )
         })}
         <style jsx>{`
         .container {
