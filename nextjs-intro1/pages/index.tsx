@@ -8,6 +8,7 @@ import Seo from '../components/Seo';
 
 interface Props {
   router: NextRouter
+  results: []
 }
 
 class State {
@@ -16,10 +17,12 @@ class State {
 
 class Home extends React.Component<Props, State> {
   state = new State();
-  API_KEY = "ee953e75536872478cf05bd3b6583e4e"
+
   constructor(props: Props) {
     super(props);
-    console.log("Home constructor", this.props.router);
+    console.log("Home constructor router", this.props.router);
+    console.log("Home constructor results", this.props.results);
+    this.state = {movies: this.props.results}
   }
 
   componentDidMount = () => {
@@ -30,36 +33,70 @@ class Home extends React.Component<Props, State> {
     //   res.data.results
     // })
 
-    (async ()=> {
-      const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${this.API_KEY}`);
-      const data = await res.json();
-      console.log("componentDidMount", data);
-      this.setState({movies: data.results})
-    })();
+    // (async ()=> {
+    //   const res = await fetch(`/api/popular`);
+    //   const data = await res.json();
+    //   console.log("componentDidMount", data);
+    //   this.setState({movies: data.results})
+    // })();
 
     // fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${this.API_KEY}`)
     // .then((res)=>{
     //   console.log("componentDidMount", res.body);
     // })
     
+    // https://nomadcoders.co/nextjs-fundamentals/lectures/3446
   }
 
   render() {
     return (
       <div>
         <Seo title="Home"/>
-        {this.state.movies}
-        {!this.state.movies && <h4>Loading</h4>}
+        {this.state.movies?.toString()}
+        {!this.state.movies && <h4>Loading...</h4>}
         {this.state.movies?.map((v:any,k:number)=>{
         return (
-          <div key={k}>
+          <div key={k} className="movie">
+            <img src={`https://image.tmdb.org/t/p/w500/${v.poster_path}`} />
             <h4>{v.original_title}</h4>
           </div>
         )
         })}
+        <style jsx>{`
+        .container {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          padding: 20px;
+          gap: 20px;
+        }
+        .movie img {
+          max-width: 100%;
+          border-radius: 12px;
+          transition: transform 0.2s ease-in-out;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        }
+        .movie:hover img {
+          transform: scale(1.05) translateY(-10px);
+        }
+        .movie h4 {
+          font-size: 18px;
+          text-align: center;
+        }
+        `}</style>
       </div>
     )
   }
 }
 
 export default withRouter(Home)
+
+export async function getServerSideProps() {
+  const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}`);
+  const data = await res.json();
+
+  return {
+    props: {
+      results: data.results
+    }
+  }
+}
