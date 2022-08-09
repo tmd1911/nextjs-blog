@@ -3,12 +3,16 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Layout from "../../components/layout";
 import { getAllPostIds, getPostData } from "../../lib/posts";
 import { ParsedUrlQuery } from "querystring";
+import Head from "next/head";
+import Date from '../../components/date'
+import utilStyles from '../../styles/utils.module.css'
 
 interface Props {
     postData: {
         id:string,
         title:string,
         date:string
+        contentHtml:string
     }
 }
 
@@ -23,11 +27,16 @@ class Post extends React.Component<Props, State> {
     render() {
         return (
             <Layout home={false}>
-                <div>{this.props.postData.title}</div>
-                <br/>
-                <div>{this.props.postData.id}</div>
-                <br/>
-                <div>{this.props.postData.date}</div>
+                <Head>
+                    <title>{this.props.postData.title}</title>
+                </Head>
+                <article>
+                    <h1 className={utilStyles.headingX1}>{this.props.postData.title}</h1>
+                    <div className={utilStyles.lightText}>
+                        <Date dateString={this.props.postData.date} />
+                    </div>
+                <div dangerouslySetInnerHTML={{__html: this.props.postData.contentHtml }} />
+                </article>
             </Layout>
         )
     }
@@ -47,7 +56,7 @@ export const getStaticProps: GetStaticProps = async(context) => {
         id: string
     }
     const params = context.params as P
-    const postData = getPostData(params.id)
+    const postData = await getPostData(params.id)
     return {
         props: {
             postData,
